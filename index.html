@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Ali - UI/UX Developer Portfolio</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * {
+            font-family: 'Inter', 'Poppins', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+
+        /* Glassmorphism Card Effect */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Hero Organic Blob Animation */
+        .hero-blob {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+            animation: morphBlob 10s ease-in-out infinite alternate;
+            box-shadow: 0 0 50px rgba(59, 130, 246, 0.35);
+        }
+
+        @keyframes morphBlob {
+            0% {
+                border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+            }
+            50% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+            100% {
+                border-radius: 35% 65% 55% 45% / 45% 60% 40% 55%;
+            }
+        }
+
+        /* Interactive Hover Glow */
+        .hover-glow {
+            transition: all 0.3s ease;
+        }
+        .hover-glow:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px -5px rgba(59, 130, 246, 0.25);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        /* Section Accent Underline */
+        .section-heading {
+            position: relative;
+            display: inline-block;
+        }
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            border-radius: 2px;
+        }
+
+        /* Active Navigation Indicator */
+        .nav-link.active {
+            color: #60a5fa;
+            position: relative;
+        }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #3b82f6;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 antialiased selection:bg-blue-500 selection:text-white">
+
+    <!-- Toast Notification Message Box (replaces alert) -->
+    <div id="toast" class="fixed top-24 right-5 z-50 transform translate-x-full opacity-0 transition-all duration-300 flex items-center gap-3 bg-slate-800 text-white border border-blue-500/40 px-5 py-3.5 rounded-xl shadow-2xl">
+        <i class="fa-solid fa-circle-check text-blue-400 text-lg"></i>
+        <span id="toast-message" class="text-sm font-medium">Copied to clipboard!</span>
+    </div>
+
+    <!-- HEADER & NAVIGATION -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
+            <a href="#home" class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5 group">
+                <span class="w-3.5 h-3.5 rounded-full bg-blue-500 group-hover:scale-125 transition transform"></span>
+                <span class="bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">Muhammad Ali</span>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-10 text-sm font-semibold text-slate-300">
+                <a href="#home" class="nav-link active hover:text-white transition">Home</a>
+                <a href="#about" class="nav-link hover:text-white transition">About</a>
+                <a href="#skills" class="nav-link hover:text-white transition">Skills</a>
+                <a href="#work" class="nav-link hover:text-white transition">Work</a>
+                <a href="#contact" class="nav-link hover:text-white transition">Contact</a>
+            </nav>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="menu-btn" class="md:hidden text-2xl text-slate-300 hover:text-white focus:outline-none p-2 rounded-lg bg-slate-800/50" aria-label="Toggle menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden glass-nav border-t border-slate-800 px-6 py-6 flex flex-col space-y-4 font-semibold text-center text-slate-300">
+            <a href="#home" class="mobile-nav-link text-blue-400 py-1.5">Home</a>
+            <a href="#about" class="mobile-nav-link hover:text-white py-1.5">About</a>
+            <a href="#skills" class="mobile-nav-link hover:text-white py-1.5">Skills</a>
+            <a href="#work" class="mobile-nav-link hover:text-white py-1.5">Work</a>
+            <a href="#contact" class="mobile-nav-link hover:text-white py-1.5">Contact</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="pt-32 md:pt-40 pb-20 md:pb-28 max-w-7xl mx-auto px-6 md:px-12 min-h-screen flex items-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
+            
+            <!-- Left Text Column -->
+            <div class="space-y-6 text-left">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 font-semibold text-xs md:text-sm rounded-full">
+                    <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                    Available for UI/UX Opportunities
+                </div>
+
+                <div class="space-y-2">
+                    <h3 class="text-2xl md:text-3xl font-medium text-slate-300">
+                        Hello, I'm
+                    </h3>
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-none">
+                        Muhammad Ali
+                    </h1>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                        UI/UX Developer
+                    </h2>
+                </div>
+
+                <p class="text-slate-400 leading-relaxed text-base max-w-xl">
+                    Passionate about crafting intuitive, visually captivating, and user-centered web & mobile interfaces with 1 year of hands-on prototyping and UI design experience.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="pt-2 flex flex-wrap items-center gap-4">
+                    <a href="#contact" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-7 py-3.5 rounded-xl shadow-lg shadow-blue-600/30 hover:shadow-blue-500/50 transition transform active:scale-95 text-sm md:text-base">
+                        Contact Me <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </a>
+                    <a href="#work" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-7 py-3.5 rounded-xl border border-slate-700 transition transform active:scale-95 text-sm md:text-base">
+                        View Projects <i class="fa-solid fa-arrow-down text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Direct Social Links Bar -->
+                <div class="pt-4 flex items-center space-x-5 text-xl">
+                    <a href="https://linkedin.com/in/m-ali2968" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-blue-400 hover:border-blue-500/50 transition transform hover:-translate-y-1" title="LinkedIn">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/M-Ali1818" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-blue-400 hover:border-blue-500/50 transition transform hover:-translate-y-1" title="GitHub">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="mailto:mali324536@gmail.com" class="w-11 h-11 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-blue-400 hover:border-blue-500/50 transition transform hover:-translate-y-1" title="Email">
+                        <i class="fa-regular fa-envelope"></i>
+                    </a>
+                    <a href="https://wa.me/923248471174" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-blue-400 hover:border-blue-500/50 transition transform hover:-translate-y-1" title="WhatsApp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Profile Image Hero Container -->
+            <div class="flex justify-center items-center">
+                <div class="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 hero-blob flex items-end justify-center overflow-hidden">
+                    <img src="Gemini_Generated_Image_k0yz2ok0yz2ok0yz.jpg" 
+                         alt="Muhammad Ali - UI/UX Developer" 
+                         class="w-full h-full object-cover object-top scale-105 transform translate-y-2 filter drop-shadow-2xl"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x600/1d4ed8/ffffff?text=Muhammad+Ali';">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-24 bg-slate-900/60 border-y border-slate-800/50">
+        <div class="max-w-5xl mx-auto px-6 md:px-12 text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white section-heading mb-16">
+                About Me
+            </h2>
+
+            <div class="glass-card p-8 md:p-12 rounded-3xl text-left space-y-6 shadow-2xl">
+                <div class="flex items-center gap-4 text-blue-400 font-bold text-lg">
+                    <i class="fa-solid fa-user-astronaut text-2xl"></i>
+                    <span>UI/UX Designer & Developer</span>
+                </div>
+
+                <p class="text-slate-300 leading-relaxed text-base md:text-lg">
+                    Experienced <strong>UI/UX Developer</strong> with 1 year of hands-on experience in designing seamless user interfaces, wireframes, interactive prototypes, and web design systems.
+                </p>
+
+                <p class="text-slate-300 leading-relaxed text-base md:text-lg">
+                    Passionate about user-centric design principles, visual aesthetics, color theory, and prototyping. Proficient in <strong>HTML, CSS, and Adobe Photoshop</strong> to seamlessly bridge the gap between design and development.
+                </p>
+
+                <!-- Information Badges -->
+                <div class="pt-6 border-t border-slate-700/60 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-medium text-slate-300">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-location-dot text-blue-400 text-lg"></i>
+                        <span>Lahore, Pakistan</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-graduation-cap text-blue-400 text-lg"></i>
+                        <span>BS Mass Communication (2021-2025)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="py-24 max-w-7xl mx-auto px-6 md:px-12">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white section-heading">
+                Skills & Expertise
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Left Skill Progress Bars -->
+            <div class="space-y-6">
+                <div class="space-y-2">
+                    <h3 class="text-2xl md:text-3xl font-bold text-white">
+                        Design & Development Core
+                    </h3>
+                    <p class="text-slate-400 text-sm md:text-base leading-relaxed">
+                        Combining creative user interface design with functional web fundamentals. Well-versed in wireframing, color systems, and front-end code structure.
+                    </p>
+                </div>
+
+                <!-- Skill 1: UI/UX Design -->
+                <div class="glass-card p-4 rounded-2xl space-y-2">
+                    <div class="flex justify-between items-center text-sm font-bold text-slate-200">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-solid fa-pen-ruler text-blue-400"></i> UI/UX Design & Prototyping
+                        </span>
+                        <span class="text-blue-400">90%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                        <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full" style="width: 90%;"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 2: Adobe Photoshop -->
+                <div class="glass-card p-4 rounded-2xl space-y-2">
+                    <div class="flex justify-between items-center text-sm font-bold text-slate-200">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-solid fa-image text-blue-400"></i> Adobe Photoshop
+                        </span>
+                        <span class="text-blue-400">80%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                        <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full" style="width: 80%;"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 3: HTML -->
+                <div class="glass-card p-4 rounded-2xl space-y-2">
+                    <div class="flex justify-between items-center text-sm font-bold text-slate-200">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-brands fa-html5 text-blue-400"></i> HTML
+                        </span>
+                        <span class="text-blue-400">75%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                        <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full" style="width: 75%;"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 4: CSS -->
+                <div class="glass-card p-4 rounded-2xl space-y-2">
+                    <div class="flex justify-between items-center text-sm font-bold text-slate-200">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-brands fa-css3-alt text-blue-400"></i> CSS
+                        </span>
+                        <span class="text-blue-400">70%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                        <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full" style="width: 70%;"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Visual Graphic Showcase Card -->
+            <div class="flex justify-center">
+                <div class="glass-card p-4 rounded-3xl overflow-hidden max-w-lg w-full">
+                    <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=800&q=80" 
+                         alt="UI/UX Prototyping Workspace" 
+                         class="w-full h-80 md:h-96 object-cover rounded-2xl filter brightness-90 hover:brightness-100 transition duration-300"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e293b/ffffff?text=UI/UX+Design+Workspace';">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- WORK / PROJECTS SECTION -->
+    <section id="work" class="py-24 bg-slate-900/60 border-t border-slate-800/50">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white section-heading">
+                    Featured Work & Projects
+                </h2>
+                <p class="text-slate-400 text-base mt-4 max-w-xl mx-auto">
+                    Explore my recent UI/UX design concepts, interactive web interfaces, and high-fidelity prototypes.
+                </p>
+            </div>
+
+            <!-- 4 Projects Showcase Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Project 1 Card -->
+                <div class="glass-card rounded-3xl overflow-hidden hover-glow flex flex-col justify-between">
+                    <div>
+                        <div class="h-52 bg-gradient-to-br from-blue-600 via-indigo-600 to-slate-900 p-6 flex flex-col justify-between relative">
+                            <div class="flex justify-between items-center">
+                                <span class="px-3 py-1 bg-black/30 backdrop-blur-md text-blue-300 text-xs font-semibold rounded-full border border-white/10">UI Design</span>
+                                <i class="fa-solid fa-desktop text-2xl text-white/80"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-extrabold text-white">Portfolio Design System</h4>
+                                <p class="text-xs text-slate-300 mt-1">Web UI & Prototype</p>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <h3 class="text-lg font-bold text-white">Developer Personal Portfolio</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                Responsive single-page portfolio designed with clean visual hierarchy, dark mode glassmorphic elements, smooth scroll navigation, and interactive skills showcase.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700">Figma</span>
+                                <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700">UI/UX</span>
+                                <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700">HTML & CSS</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <a href="https://github.com/M-Ali1818" target="_blank" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold text-sm transition">
+                            View Case Study <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2 Card -->
+                <div class="glass-card rounded-3xl overflow-hidden hover-glow flex flex-col justify-between">
+                    <div>
+                        <div class="h-52 bg-gradient-to-br from-teal-600 via-emerald-600 to-slate-900 p-6 flex flex-col justify-between relative">
+                            <div class="flex justify-between items-center">
+                                <span class="px-3 py-1 bg-black/30 backdrop-blur-md text-emerald-300 text-xs font-semibold rounded-full border border-white/10">Mobile App</span>
+                                <i class="fa-solid fa-mobile-screen-button text-2xl text-white/80"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-extrabold text-white">E-Commerce Mobile Concept</h4>
+                                <p class="text-xs text-slate-300 mt-1">iOS & Android Interface</p>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <h3 class="text-lg font-bold text-white">Mobile User Interface Mockup</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                Intuitive mobile application layout built with custom asset preparation in Adobe Photoshop, focusing on clear mobile micro-interactions and smooth checkout flows.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700">Photoshop</span>
+                                <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700">Mobile UI</span>
+                                <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700">Prototyping</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <a href="https://github.com/M-Ali1818" target="_blank" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold text-sm transition">
+                            View Prototype <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3 Card -->
+                <div class="glass-card rounded-3xl overflow-hidden hover-glow flex flex-col justify-between">
+                    <div>
+                        <div class="h-52 bg-gradient-to-br from-indigo-600 via-purple-600 to-slate-900 p-6 flex flex-col justify-between relative">
+                            <div class="flex justify-between items-center">
+                                <span class="px-3 py-1 bg-black/30 backdrop-blur-md text-purple-300 text-xs font-semibold rounded-full border border-white/10">Web App</span>
+                                <i class="fa-solid fa-layer-group text-2xl text-white/80"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-extrabold text-white">Analytics Dashboard Design</h4>
+                                <p class="text-xs text-slate-300 mt-1">Web Dashboard UI</p>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <h3 class="text-lg font-bold text-white">SaaS Product Admin Interface</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                Complete dashboard user interface redesign structuring data metrics seamlessly with customizable widget cards, clear contrast ratios, and intuitive sidebar navigation.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700">Dashboard</span>
+                                <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700">UX Research</span>
+                                <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700">Design System</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <a href="https://github.com/M-Ali1818" target="_blank" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold text-sm transition">
+                            View Designs <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 4 Card -->
+                <div class="glass-card rounded-3xl overflow-hidden hover-glow flex flex-col justify-between">
+                    <div>
+                        <div class="h-52 bg-gradient-to-br from-rose-600 via-pink-600 to-slate-900 p-6 flex flex-col justify-between relative">
+                            <div class="flex justify-between items-center">
+                                <span class="px-3 py-1 bg-black/30 backdrop-blur-md text-pink-300 text-xs font-semibold rounded-full border border-white/10">Redesign</span>
+                                <i class="fa-solid fa-store text-2xl text-white/80"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-extrabold text-white">Storefront Experience</h4>
+                                <p class="text-xs text-slate-300 mt-1">Landing Page UI</p>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <h3 class="text-lg font-bold text-white">Online Store Landing Page</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                Interactive store front-page focusing on visual visual hierarchy, high conversion call-to-actions, and clear product grid presentation.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700">E-Commerce</span>
+                                <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700">Wireframes</span>
+                                <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700">CSS Styling</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <a href="https://github.com/M-Ali1818" target="_blank" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold text-sm transition">
+                            View Project <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-24 max-w-5xl mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white section-heading mb-6">
+            Get In Touch
+        </h2>
+        <p class="text-slate-400 text-base md:text-lg max-w-xl mx-auto mb-16">
+            Feel free to reach out for UI/UX design opportunities, project collaborations, or general inquiries!
+        </p>
+
+        <!-- Direct Contact Info Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left mb-12">
+            
+            <!-- Email Contact Card -->
+            <div class="glass-card p-6 rounded-2xl flex items-center justify-between hover-glow">
+                <a href="mailto:mali324536@gmail.com" class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-xl">
+                        <i class="fa-regular fa-envelope"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Email Address</p>
+                        <p class="font-semibold text-white text-sm md:text-base">mali324536@gmail.com</p>
+                    </div>
+                </a>
+                <button onclick="copyToClipboard('mali324536@gmail.com', 'Email address copied!')" class="text-slate-400 hover:text-blue-400 p-2 transition" title="Copy Email">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+            </div>
+
+            <!-- WhatsApp Contact Card -->
+            <div class="glass-card p-6 rounded-2xl flex items-center justify-between hover-glow">
+                <a href="https://wa.me/923248471174" target="_blank" class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">WhatsApp / Phone</p>
+                        <p class="font-semibold text-white text-sm md:text-base">+92 324-8471174</p>
+                    </div>
+                </a>
+                <button onclick="copyToClipboard('+923248471174', 'Phone number copied!')" class="text-slate-400 hover:text-emerald-400 p-2 transition" title="Copy Phone">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+            </div>
+
+            <!-- LinkedIn Contact Card -->
+            <div class="glass-card p-6 rounded-2xl flex items-center justify-between hover-glow">
+                <a href="https://linkedin.com/in/m-ali2968" target="_blank" class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-blue-600/10 border border-blue-600/20 text-blue-400 flex items-center justify-center text-xl">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">LinkedIn Profile</p>
+                        <p class="font-semibold text-white text-sm md:text-base">linkedin.com/in/m-ali2968</p>
+                    </div>
+                </a>
+                <button onclick="copyToClipboard('https://linkedin.com/in/m-ali2968', 'LinkedIn URL copied!')" class="text-slate-400 hover:text-blue-400 p-2 transition" title="Copy LinkedIn">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+            </div>
+
+            <!-- GitHub Contact Card -->
+            <div class="glass-card p-6 rounded-2xl flex items-center justify-between hover-glow">
+                <a href="https://github.com/M-Ali1818" target="_blank" class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-slate-700/30 border border-slate-600/30 text-slate-200 flex items-center justify-center text-xl">
+                        <i class="fa-brands fa-github"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">GitHub Profile</p>
+                        <p class="font-semibold text-white text-sm md:text-base">github.com/M-Ali1818</p>
+                    </div>
+                </a>
+                <button onclick="copyToClipboard('https://github.com/M-Ali1818', 'GitHub URL copied!')" class="text-slate-400 hover:text-white p-2 transition" title="Copy GitHub">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 border-t border-slate-800/80 py-12 text-center">
+        <div class="max-w-7xl mx-auto px-6 space-y-6">
+            <h2 class="text-2xl font-bold text-white tracking-tight">
+                Muhammad Ali
+            </h2>
+            <p class="text-slate-400 text-sm">
+                UI/UX Developer • Lahore, Pakistan
+            </p>
+
+            <div class="pt-6 border-t border-slate-900">
+                <p class="text-xs text-slate-500 font-light">
+                    &copy; 2026 Muhammad Ali. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // Mobile Navigation Toggle Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Active Navigation Scroll Highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 140;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Copy To Clipboard Functionality (iFrame safe fallback)
+        function copyToClipboard(text, message) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showToast(message);
+        }
+
+        // Custom Toast Notification Function
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = msg;
+            
+            toast.classList.remove('translate-x-full', 'opacity-0');
+            toast.classList.add('translate-x-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-x-0', 'opacity-100');
+                toast.classList.add('translate-x-full', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
